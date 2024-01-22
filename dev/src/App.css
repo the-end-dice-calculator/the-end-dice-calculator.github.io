@@ -1,0 +1,26 @@
+body {
+	background-color: black;
+	color: white;
+}
+
+a {
+	color: lime;
+}
+
+button {
+	background-color: black;
+	color: lime;
+	border: solid 1px white;
+	border-radius: 5px;
+	padding: 5px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+button:active, button:hover {
+	background-color: #333;
+}
+
+header {
+	text-align: center;
+}

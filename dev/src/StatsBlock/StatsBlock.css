@@ -1,0 +1,79 @@
+.StatsBlock .StatsBlock-input {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	gap: 100px;
+}
+
+.StatsBlock .StatsBlock-input label:first-child {
+	margin-right: 10px;
+}
+
+.StatsBlock .StatsBlock-input input {
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	appearance: none;
+	padding-top: 5px;
+	cursor: pointer;
+	vertical-align: top;
+	background-color: white;
+	border: 1px solid gray;
+}
+
+.StatsBlock .StatsBlock-input input:checked {
+	border: none;
+}
+
+.StatsBlock .StatsBlock-input input:checked::before {
+    content: 'X';
+    display: block;
+    text-align: center;
+    color: black;
+    position: relative;
+	font-size: 19px;
+	font-weight: bold;
+	top: -11px;
+	left: 0px;
+}
+
+.StatsBlock .StatsBlock-input select {
+	cursor: pointer;
+}
+
+.StatsBlock-output {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.AttackerInput h4 {
+	margin-bottom: 10px;
+}
+
+.AttackerInput .AttackerInput-block {
+	margin-left: 10px;
+}
+
+.StatsOutput {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.StatsOutput button {
+	width: 120px;
+	font-size: 16px;
+	margin-bottom: 15px;
+}
+
+.StatsOutput table {
+	border-collapse: collapse;
+}
+
+.StatsOutput td {
+	border: 1px solid white;
+	padding: 5px;
+}
