@@ -64,9 +64,20 @@
 }
 
 .StatsOutput button {
-	width: 120px;
+	width: 150px;
 	font-size: 16px;
 	margin-bottom: 15px;
+	background-color: black;
+	color: lime;
+	cursor: pointer;
+	border-color: lime;
+}
+
+.StatsOutput button.running {
+	background-color: #888;
+	color: #444;
+	cursor: wait;
+	border-color: #444;
 }
 
 .StatsOutput table {
@@ -76,4 +87,8 @@
 .StatsOutput td {
 	border: 1px solid white;
 	padding: 5px;
+}
+
+.StatsOutput td.percent-output {
+	text-align: center;
 }

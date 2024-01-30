@@ -11,7 +11,7 @@ class Circumstances {
 		long_shot = false,
 		moving = false,
 		/*defender circumstances*/
-		armor = 4,
+		armor = 5,
 		cover = false,
 		target_running = false
 	} = {}) { 

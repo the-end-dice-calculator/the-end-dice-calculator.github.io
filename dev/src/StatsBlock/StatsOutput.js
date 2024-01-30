@@ -1,10 +1,24 @@
 import {useState, useEffect} from 'react';
 
+// Keep track of the latest request time so we don't post
+// data from outdated calculations.
+let latestRequestTime = null;
+
 const StatsOutput = ({circumstances}) => {
 	const [isCalculating, setIsCalculating] = useState(false);
 	const [showBrutal, setShowBrutal] = useState(false);
 	const [outputData, setOutputData] = useState(null);
 	const [worker, setWorker] = useState(null);
+	const [isButtonActive, setIsButtonActive] = useState(true);
+
+	useEffect(() => {
+		if (circumstances) {
+			setIsButtonActive(true);
+			setIsCalculating(false);
+			setOutputData(null);
+			latestRequestTime = null;
+		}
+	}, [circumstances, setIsButtonActive]);
 
 	useEffect(() => {
 		const calculateWorker = new Worker(
@@ -19,20 +33,35 @@ const StatsOutput = ({circumstances}) => {
 	}, []);
 
 	const onReceiveOutput = (outputData) => {
-		setOutputData(outputData);
-		setIsCalculating(false);
+		if (outputData.requestTime === latestRequestTime) {
+			setOutputData(outputData.output);
+			setIsCalculating(false);
+		}
 	}
 
 	const calculate = () => {
 		if (circumstances) {
 			setShowBrutal(circumstances.brutal);
 			setIsCalculating(true);
+			setIsButtonActive(false);
 			setOutputData(null);
-			worker.postMessage(circumstances);
+			latestRequestTime = Date.now();
+			worker.postMessage({
+				circumstances,
+				requestTime: latestRequestTime
+			});
 		}
 	}
 
-	const format_percent = (x) => `${(x * 100.0).toFixed(1)}%`;
+	const format_percent = (x) => {
+		if (x === 0) {
+			return '0%';
+		} else if ( x < 0.001) {
+			return '<0.1%';
+		} else {
+			return `${(x * 100.0).toFixed(1)}%`;
+		}
+	}
 
 	const BRUTAL_OUTPUT_KEYS = [
 		["KILL", "Kill"],
@@ -55,15 +84,17 @@ const StatsOutput = ({circumstances}) => {
 
 	return (
 		<div className="StatsOutput">
-			<button onClick={calculate}>Calculate</button>
-			<div>{isCalculating && "Calculating..."}</div>
+			{isButtonActive && <button onClick={calculate}>Calculate</button>}
+			{isCalculating && <button className="running">Calculating...</button>}
 			{!isCalculating && outputData != null && (
 				<table>
 					<tbody>
 						{output_keys.map(([key, label]) => (
 							<tr key={key}>
 								<td>{label}</td>
-								<td>{format_percent(outputData[key])}</td>
+								<td className="percent-output">
+									{format_percent(outputData[key])}
+								</td>
 							</tr>
 						))}
 					</tbody>
