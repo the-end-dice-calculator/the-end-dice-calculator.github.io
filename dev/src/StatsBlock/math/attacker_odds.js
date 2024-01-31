@@ -51,7 +51,13 @@ const generate_attacker_odds = (circumstances) => {
 		MISS: 0
 	}
 
-	const evaluate_roll = (circumstances, roll, rerolls_used=[], weight=1) => {
+	const evaluate_roll = (
+		circumstances,
+		roll,
+		dice_modified=false,
+		rerolls_used=[],
+		weight=1
+	) => {
 		if (circumstances.rapid_fire) {
 			const reroll_indices =
 				indicesOf(roll, 1).filter((i) => !rerolls_used.includes(i));
@@ -61,6 +67,7 @@ const generate_attacker_odds = (circumstances) => {
 					evaluate_roll(
 						clone(circumstances, {rapid_fire: false}),
 						reroll,
+						true,
 						rerolls_used.concat(reroll_indices),
 						weight * weight_factor
 					);
@@ -71,6 +78,7 @@ const generate_attacker_odds = (circumstances) => {
 		if (circumstances.precise && count(roll, 2) === 1 && count(roll, 1) === 0) {
 			circumstances = clone(circumstances, {precise: false});
 			roll[roll.indexOf(2)] += 1;
+			dice_modified = true;
 		}
 		if (circumstances.brutal && (roll.includes(1) || roll.includes(2))) {
 			const reroll_index = get_brutal_reroll_index(roll, rerolls_used);
@@ -80,6 +88,7 @@ const generate_attacker_odds = (circumstances) => {
 					evaluate_roll(
 						clone(circumstances, {brutal: false}),
 						reroll,
+						true,
 						rerolls_used.concat(reroll_index),
 						weight /6
 					);
@@ -87,12 +96,16 @@ const generate_attacker_odds = (circumstances) => {
 				return;
 			}
 		}
-		if (circumstances.precise) {
+		if (circumstances.precise &&
+			((count(roll, 2) === 1 && count(roll, 1) === 0)
+				|| (count(roll, 5) === 1 && count(roll, 6) === roll.length -1))
+		) {
 			circumstances = clone(circumstances, {precise: false});
 			roll[roll.indexOf(Math.min(...roll))] += 1;
+			dice_modified = true;
 		}
 		const outcome = get_attack_outcome(roll,
-			circumstances.brutal && rerolls_used.length === 0);
+			circumstances.brutal && !dice_modified && rerolls_used.length === 0);
 		outcomes[outcome] += weight;
 	}
 
