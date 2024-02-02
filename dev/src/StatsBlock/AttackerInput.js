@@ -16,18 +16,18 @@ const AttackerInput = ({circumstances, onChange}) => {
 				<div>
 					<input
 						type="checkbox"
-						onChange={onBoxChanged("armor_penetration")}
-						checked={circumstances.armor_penetration}
-					/>
-					<label>Armor penetration</label>
-				</div>
-				<div>
-					<input
-						type="checkbox"
 						onChange={onBoxChanged("brutal")}
 						checked={circumstances.brutal}
 					/>
 					<label>Brutal</label>
+				</div>
+				<div>
+					<input
+						type="checkbox"
+						onChange={onBoxChanged("piercing")}
+						checked={circumstances.piercing}
+					/>
+					<label>Piercing</label>
 				</div>
 				<div>
 					<input

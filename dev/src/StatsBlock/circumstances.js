@@ -1,8 +1,8 @@
 class Circumstances {
 	constructor({
 		/*weapon properties*/
-		armor_penetration = false,
 		brutal = false,
+		piercing = false,
 		precise = false,
 		rapid_fire = false,
 		scoped = false,
@@ -15,8 +15,8 @@ class Circumstances {
 		cover = false,
 		target_running = false
 	} = {}) { 
-		this.armor_penetration = armor_penetration;
 		this.brutal = brutal;
+		this.piercing = piercing;
 		this.precise = precise;
 		this.rapid_fire = rapid_fire;
 		this.scoped = scoped;
@@ -29,8 +29,8 @@ class Circumstances {
 	}
 
 	copy({
-		armor_penetration = null,
 		brutal = null,
+		piercing = null,
 		precise = null,
 		rapid_fire = null,
 		scoped = null,
@@ -42,8 +42,8 @@ class Circumstances {
 		target_running = null,
 	} = {}) {
 		return new Circumstances({
-			armor_penetration: armor_penetration ?? this.armor_penetration,
 			brutal: brutal ?? this.brutal,
+			piercing: piercing ?? this.piercing,
 			precise: precise ?? this.precise,
 			rapid_fire: rapid_fire ?? this.rapid_fire,
 			scoped: scoped ?? this.scoped,
