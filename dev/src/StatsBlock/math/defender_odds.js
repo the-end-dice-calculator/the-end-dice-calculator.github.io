@@ -22,7 +22,7 @@ const generate_defender_odds = (circumstances) => {
 				circumstances = clone(circumstances, {scoped: false});
 				cover_roll = roll[die_index++];
 			}
-			if (circumstances.piercing && cover_roll === cover_value) {
+			if (circumstances.piercing && cover_roll >= cover_value) {
 				circumstances = clone(circumstances, {piercing: false});
 				cover_roll -= 1;
 			}
@@ -41,7 +41,7 @@ const generate_defender_odds = (circumstances) => {
 				circumstances = clone(circumstances, {scoped: false});
 				armor_roll = roll[die_index++];
 			}
-			if (circumstances.piercing && armor_roll === armor_value) {
+			if (circumstances.piercing && armor_roll >= armor_value) {
 				circumstances = clone(circumstances, {piercing: false});
 				armor_roll -= 1;
 			}
@@ -95,9 +95,12 @@ const generate_defender_brutal_odds = (circumstances) => {
 				cover_dice[scoped_reroll_index] = roll[die_index_1];
 				die_index_1 = next_index();
 			}
-			if (circumstances.piercing && cover_dice.some(x => x === cover_value)) {
+			if (circumstances.piercing && cover_dice.some(x => x >= cover_value)) {
 				circumstances = clone(circumstances, {piercing: false});
-				const pierce_index = cover_dice.findIndex(x => x === cover_value);
+				let pierce_index = cover_dice.findIndex(x => x === cover_value);
+				if (pierce_index === -1) {
+					pierce_index = cover_dice.findIndex(x => x >= cover_value);
+				}
 				cover_dice[pierce_index] -= 1;
 			}
 			if (cover_dice.every((die) => die >= cover_value)) {
@@ -121,7 +124,7 @@ const generate_defender_brutal_odds = (circumstances) => {
 					armor_roll = roll[die_index_1];
 					die_index_1 = next_index();
 				}
-				if (circumstances.piercing && armor_roll === armor_value) {
+				if (circumstances.piercing && armor_roll >= armor_value) {
 					circumstances = clone(circumstances, {piercing: false});
 					armor_roll -= 1;
 				}
@@ -151,10 +154,13 @@ const generate_defender_brutal_odds = (circumstances) => {
 					die_index_1 = next_index();
 				}
 				if (circumstances.piercing && 
-					armor_dice.some(x => x === armor_value)
+					armor_dice.some(x => x >= armor_value)
 				) {
 					circumstances = clone(circumstances, {piercing: false});
-					const pierce_index = armor_dice.findIndex(x => x === armor_value);
+					let pierce_index = armor_dice.findIndex(x => x === armor_value);
+					if (pierce_index === -1) {
+						pierce_index = armor_dice.findIndex(x => x >= armor_value);
+					}
 					armor_dice[pierce_index] -= 1;
 				}
 				if (armor_dice.every((die) => die >= armor_value)) {
