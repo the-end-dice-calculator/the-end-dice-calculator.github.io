@@ -9,7 +9,7 @@ const generate_defender_odds = (circumstances) => {
 
 	const evaluate_roll = (circumstances, roll) => {
 		let die_index = 0;
-		if (circumstances.cover) {
+		if (circumstances.cover_save) {
 			// TODO: cover value should be able to vary (e.g. Northstar Militia)
 			//       but I don't want to deal with it yet
 			const cover_value = 5;
@@ -76,7 +76,7 @@ const generate_defender_brutal_odds = (circumstances) => {
 		let die_index_2 = 1;
 		const next_index = () => Math.max(die_index_1, die_index_2) + 1;
 		let saved_one_from_cover = false;
-		if (circumstances.cover) {
+		if (circumstances.cover_save) {
 			// TODO: cover value should be able to vary (e.g. Northstar Militia)
 			//       but I don't want to deal with it yet
 			const cover_value = 5;

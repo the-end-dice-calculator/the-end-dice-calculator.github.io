@@ -12,7 +12,8 @@ class Circumstances {
 		moving = false,
 		/*defender circumstances*/
 		armor = 5,
-		cover = false,
+		cover_penalty = false,
+		cover_save = false,
 		target_running = false
 	} = {}) { 
 		this.brutal = brutal;
@@ -24,7 +25,8 @@ class Circumstances {
 		this.long_shot = long_shot;
 		this.moving = moving;
 		this.armor = armor;
-		this.cover = cover;
+		this.cover_penalty = cover_penalty;
+		this.cover_save = cover_save;
 		this.target_running = target_running;
 	}
 
@@ -38,7 +40,8 @@ class Circumstances {
 		long_shot = null,
 		moving = null,
 		armor = null,
-		cover = null,
+		cover_penalty = null,
+		cover_save = null,
 		target_running = null,
 	} = {}) {
 		return new Circumstances({
@@ -51,7 +54,8 @@ class Circumstances {
 			long_shot: long_shot ?? this.long_shot,
 			moving: moving ?? this.moving,
 			armor: armor ?? this.armor,
-			cover: cover ?? this.cover,
+			cover_penalty: cover_penalty ?? this.cover_penalty,
+			cover_save: cover_save ?? this.cover_save,
 			target_running: target_running ?? this.target_running
 		});
 	}
@@ -60,7 +64,7 @@ class Circumstances {
 		return 1 + this.injuries +
 			(this.long_shot ? 1 : 0) +
 			(this.moving? 1 : 0) +
-			(this.cover ? 1 : 0) +
+			(this.cover_penalty ? 1 : 0) +
 			(this.target_running? 1 : 0);
 	}
 }

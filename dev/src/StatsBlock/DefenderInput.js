@@ -7,6 +7,13 @@ const DefenderInput = ({circumstances, onChange}) => {
 		onChange(circumstances.copy({[property]: e.target.checked}));
 	}
 
+	const onCoverChanged = (e) => {
+		onChange(circumstances.copy({
+			cover_penalty: e.target.checked,
+			cover_save: e.target.checked
+		}));
+	}
+
 	return (
 		<div>
 			<h2>Defender</h2>
@@ -26,10 +33,26 @@ const DefenderInput = ({circumstances, onChange}) => {
 			<div>
 				<input
 					type="checkbox"
-					onChange={onBoxChanged("cover")}
-					checked={circumstances.cover}
+					onChange={onCoverChanged}
+					checked={circumstances.cover_penalty && circumstances.cover_save}
 				/>
 				<label>Cover</label>
+			</div>
+			<div className="indent">
+				<input
+					type="checkbox"
+					onChange={onBoxChanged("cover_penalty")}
+					checked={circumstances.cover_penalty}
+				/>
+				<label>Cover (Penalty)</label>
+			</div>
+			<div className="indent">
+				<input
+					type="checkbox"
+					onChange={onBoxChanged("cover_save")}
+					checked={circumstances.cover_save}
+				/>
+				<label>Cover (Save)</label>
 			</div>
 			<div>
 				<input

@@ -41,6 +41,10 @@
 	cursor: pointer;
 }
 
+.StatsBlock .StatsBlock-input .indent {
+	margin-left: 20px;
+}
+
 .StatsBlock-output {
 	display: flex;
 	flex-direction: row;

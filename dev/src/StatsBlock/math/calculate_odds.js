@@ -51,12 +51,12 @@ const combine_brutal_odds = (
 const calculate_brutal_odds = (circumstances) => {
 	const attacker_odds = generate_attacker_odds(circumstances);
 	const defender_odds = generate_defender_odds(circumstances);
-	const defender_crit_odds = circumstances.cover ?
-		generate_defender_odds(clone(circumstances, {cover: false})) :
+	const defender_crit_odds = circumstances.cover_save ?
+		generate_defender_odds(clone(circumstances, {cover_save: false})) :
 		defender_odds;
 	const defender_brutal_odds = generate_defender_brutal_odds(circumstances);
-	const defender_brutal_crit_odds = circumstances.cover ?
-		generate_defender_brutal_odds(clone(circumstances, {cover: false})) :
+	const defender_brutal_crit_odds = circumstances.cover_save ?
+		generate_defender_brutal_odds(clone(circumstances, {cover_save: false})) :
 		defender_brutal_odds;
 	return combine_brutal_odds(
 		attacker_odds,
@@ -70,8 +70,8 @@ const calculate_brutal_odds = (circumstances) => {
 const calculate_normal_odds = (circumstances) => {
 	const attacker_odds = generate_attacker_odds(circumstances);
 	const defender_odds = generate_defender_odds(circumstances);
-	const defender_crit_odds = circumstances.cover ?
-		generate_defender_odds(clone(circumstances, {cover: false})) :
+	const defender_crit_odds = circumstances.cover_save ?
+		generate_defender_odds(clone(circumstances, {cover_save: false})) :
 		defender_odds;
 	return combine_odds(
 		attacker_odds,

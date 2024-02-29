@@ -10,7 +10,7 @@ const get_attack_dice = (circumstances) =>
 	1 + circumstances.injuries +
 		(circumstances.long_shot ? 1 : 0) +
 		(circumstances.moving? 1 : 0) +
-		(circumstances.cover ? 1 : 0) +
+		(circumstances.cover_penalty ? 1 : 0) +
 		(circumstances.target_running? 1 : 0);
 
 function* get_reroll_possibilities (roll, reroll_indices) {
